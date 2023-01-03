@@ -1,0 +1,25 @@
+{
+  "user": [
+    {
+      "name": "Adamf",
+      "address": "London",
+      "email": "adam@gmail.com",
+      "contact": "32546",
+      "id": 1
+    },
+    {
+      "name": "Tom",
+      "address": "London",
+      "email": "tom@gmail.com",
+      "contact": "6435255",
+      "id": 2
+    },
+    {
+      "name": "James",
+      "address": "France",
+      "email": "james@gmail.com",
+      "contact": "37357347",
+      "id": 3
+    }
+  ]
+}
