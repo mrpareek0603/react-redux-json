@@ -15,7 +15,8 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, loadUsers } from "../redux/actions";
 import { useHistory } from "react-router";
-// skipping buttonStyles in video at 38 minutes Rohan
+import ErrorHandler from "./ErrorHandler";
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -52,6 +53,7 @@ const useButtonStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const buttonStyles = useButtonStyles();
+  const loggedIn = localStorage.getItem('token-info');
 
   // useDispatch is a hook to access the redux dispatch function.
   let dispatch = useDispatch();
@@ -68,71 +70,106 @@ const Home = () => {
       dispatch(deleteUser(id));
     }
   };
-  return (
-    <div className={classes.table}>
-      <div
-        className={buttonStyles.root}
-        style={{ marginBottom: "100px" }}
-        onClick={() => history.push("/addUser")}
-      >
-        <Button variant="contained" color="primary">
-          Add User
-        </Button>
+  const handleLogout = () => {
+    localStorage.removeItem('token-info');
+    history.push("/login")
+  }
+  try {
+    return (
+      <div>
+        {/* if loggedIn is true then it will render the home page */}
+        {loggedIn && (
+          <div className={classes.table}>
+            <div
+              className={buttonStyles.root}
+              style={{ marginBottom: "100px" }}
+              onClick={() => history.push("/addUser")}
+            >
+              <Button variant="contained" color="primary">
+                Add User
+              </Button>
+            </div>
+            <div //className={buttonStyles.root}
+              style={{ marginBottom: "100px" }}
+              onClick={() => handleLogout()}
+            >
+              <Button variant="contained" color="secondary">
+                LogOut
+              </Button>
+            </div>
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Name</StyledTableCell>
+                    <StyledTableCell align="center">Email</StyledTableCell>
+                    <StyledTableCell align="center">Contact</StyledTableCell>
+                    <StyledTableCell align="center">Address</StyledTableCell>
+                    <StyledTableCell align="center">Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {users &&
+                    users.map((user) => (
+                      <StyledTableRow key={user.id}>
+                        <StyledTableCell component="th" scope="row">
+                          {user.name}
+                        </StyledTableCell>
+                        <StyledTableCell align="center">{user.email}</StyledTableCell>
+                        <StyledTableCell align="center">
+                          {user.contact}
+                        </StyledTableCell>
+                        <StyledTableCell align="center">
+                          {user.address}
+                        </StyledTableCell>
+                        <StyledTableCell align="center">
+                          <div className={buttonStyles.root}>
+                            <ButtonGroup
+                              variant="contained"
+                              aria-label="outlined primary button group"
+                            >
+                              <Button
+                                style={{ marginRight: "5px" }}
+                                color="secondary"
+                                onClick={() => handleDelete(user.id)}
+                              >
+                                DELETE
+                              </Button>
+                              <Button
+                                color="primary"
+                                onClick={() => history.push(`/editUser/${user.id}`)}
+                              >
+                                EDIT
+                              </Button>
+                            </ButtonGroup>
+                          </div>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+        )}
+        {/* if loggedIn not true means that the localstorage does not contain the 'token-info' key
+        then it will show this message */}
+        {!loggedIn && (
+          <>
+            <h1>
+              Home Page
+            </h1>
+            <h4>
+              You need to login first, to see the content!
+            </h4>
+          </>
+        )}
       </div>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell align="center">Email</StyledTableCell>
-              <StyledTableCell align="center">Contact</StyledTableCell>
-              <StyledTableCell align="center">Address</StyledTableCell>
-              <StyledTableCell align="center">Action</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users &&
-              users.map((user) => (
-                <StyledTableRow key={user.id}>
-                  <StyledTableCell component="th" scope="row">
-                    {user.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">{user.email}</StyledTableCell>
-                  <StyledTableCell align="center">
-                    {user.contact}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {user.address}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    <div className={buttonStyles.root}>
-                      <ButtonGroup
-                        variant="contained"
-                        aria-label="outlined primary button group"
-                      >
-                        <Button
-                          style={{ marginRight: "5px" }}
-                          color="secondary"
-                          onClick={() => handleDelete(user.id)}
-                        >
-                          DELETE
-                        </Button>
-                        <Button
-                          color="primary"
-                          onClick={() => history.push(`/editUser/${user.id}`)}
-                        >
-                          EDIT
-                        </Button>
-                      </ButtonGroup>
-                    </div>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
-  );
+
+    );
+  } catch (error) {
+    return <ErrorHandler error={error} />
+  }
+
 };
 
 export default Home;

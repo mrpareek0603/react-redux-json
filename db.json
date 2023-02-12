@@ -1,25 +1,67 @@
 {
+  "userInfo": [
+    {
+      "firstName": "Rohan",
+      "lastName": "Pareek",
+      "email": "rohan.pareek@impetus.com",
+      "password": "123",
+      "confirmPassword": "123",
+      "id": 3
+    },
+    {
+      "firstName": "Rohit",
+      "lastName": "Pareek",
+      "email": "rohit1.pareek@impetus.com",
+      "password": "123",
+      "confirmPassword": "123",
+      "id": 4
+    },
+    {
+      "firstName": "rohan",
+      "lastName": "pareek",
+      "email": "rohan@1",
+      "password": "123",
+      "confirmPassword": "123",
+      "id": 5
+    },
+    {
+      "firstName": "Sonia",
+      "lastName": "Sharma",
+      "email": "abcd@gmail.com",
+      "password": "abcd",
+      "confirmPassword": "abcd",
+      "id": 6
+    },
+    {
+      "firstName": "Rohan",
+      "lastName": "Pareek",
+      "email": "rohan.pareek23@impetus.com",
+      "password": "123",
+      "confirmPassword": "123",
+      "id": 7
+    }
+  ],
   "user": [
     {
-      "name": "Adamf",
-      "address": "London",
-      "email": "adam@gmail.com",
-      "contact": "32546",
+      "name": "Adam123",
+      "address": "London2",
+      "email": "adam@gmail.com2",
+      "contact": "3254612",
       "id": 1
     },
     {
-      "name": "Tom",
+      "name": "Toms",
       "address": "London",
-      "email": "tom@gmail.com",
+      "email": "tom@gmail.coms",
       "contact": "6435255",
       "id": 2
     },
     {
-      "name": "James",
-      "address": "France",
-      "email": "james@gmail.com",
-      "contact": "37357347",
-      "id": 3
+      "name": "Sonia ",
+      "email": "abcd@sonia.com",
+      "contact": "12345678900",
+      "address": "noida",
+      "id": 4
     }
   ]
 }
