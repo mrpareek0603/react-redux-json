@@ -68,3 +68,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### Project overview
+In this project I made an add user app using React Hooks and Redux(state management library)
+I have iplemented user registration and login functionality where i am storing user data as a token in the localStorage when the user clicks 'Logout' button the key 'token-info' get removed and user can no longer access the Home, Add User and Delete User pages.
+
+There are basically 6 components i have used which are inside src/pages directory, Login, Register, Home, AddUser, EditUser, and an ErrorHandler component to show handle if there's any error on the UI and reflect an Error page instead of breaking the UI.
+
+I used store, reducer, and action of react-redux library for the state management, whenever there is some change on the UI the view dispatches an action corresponding to that, and it goes to the store where using the current state, and actionType the reducer updates the state, and all the components which are subscribed to this stae gets updated.
