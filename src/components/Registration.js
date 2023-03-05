@@ -5,9 +5,6 @@ import axios from 'axios';
 import ErrorHandler from './ErrorHandler';
 import { Link } from 'react-router-dom';
 
-// import Button from 'react-bootstrap/Button';
-// import {Form} from 'react-bootstrap';
-// import './style.css'
 function RegistrationForm() {
 
     const [firstName, setFirstName] = useState(null);
@@ -18,6 +15,7 @@ function RegistrationForm() {
     const [hasError, setError] = useState(false);
     const history = useHistory();
 
+    // used to set state when the input changes
     const handleInputChange = (e) => {
         const { id, value } = e.target;
         if (id === "firstName") {
@@ -38,13 +36,14 @@ function RegistrationForm() {
 
     }
 
+    //used to make api call when the Register button is clicked
     const handleSubmit = () => {
         console.log(firstName, lastName, email, password, confirmPassword);
         const userInfo = {
             firstName, lastName, email, password, confirmPassword
         }
         try {
-            axios
+            axios// check if the email already exists, if not then save it in the db.json
                 .get(`http://localhost:5000/userInfo?email=${email}`)
                 .then((resp) => {
                     console.log(resp.data);
@@ -100,6 +99,5 @@ function RegistrationForm() {
     )
 
 }
-// ---------------------------
 
 export default RegistrationForm

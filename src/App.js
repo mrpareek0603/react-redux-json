@@ -1,36 +1,47 @@
 // import logo from './logo.svg';
 import './App.css';
-import {BrowserRouter,Switch, Route} from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import Home from "./pages/Home";
-import AddUser from './pages/AddUser';
-import EditUser from './pages/EditUser';
-import RegistrationForm from './pages/Registration';
-import LoginForm from './pages/Login';
+import Home from "./components/Home";
+import AddUser from './components/AddUser';
+import EditUser from './components/EditUser';
+import RegistrationForm from './components/Registration';
+import LoginForm from './components/Login';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter> 
+      <BrowserRouter>
         <Switch>
           <Route exact path="/" >
-            <RegistrationForm/>
+            <ErrorBoundary >
+              <RegistrationForm />
+            </ErrorBoundary>
           </Route>
           <Route exact path="/login">
-            <LoginForm />
+            <ErrorBoundary >
+              <LoginForm />
+            </ErrorBoundary>
           </Route>
           <Route exact path="/home" >
-            <Home />
+            <ErrorBoundary >
+              <Home />
+            </ErrorBoundary>
           </Route>
           <Route exact path="/addUser" >
-            <AddUser />
+            <ErrorBoundary >
+              <AddUser />
+            </ErrorBoundary>
           </Route>
           <Route exact path="/editUser/:id" >
-            <EditUser />
+            <ErrorBoundary >
+              <EditUser />
+            </ErrorBoundary>
           </Route>
         </Switch>
-     </BrowserRouter>
-    </div>
+      </BrowserRouter>
+    </div >
   );
 }
 
